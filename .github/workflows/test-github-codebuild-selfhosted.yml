@@ -2,7 +2,18 @@ name: Hello World
 on: [push]
 jobs:
   Hello-World-Job:
-    runs-on:
-      - codebuild-github-codebuild-selfhosted-${{ github.run_id }}-${{ github.run_attempt }}
+    runs-on: codebuild-github-codebuild-selfhosted-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
-      - run: echo "Hello World!"
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build Docker image
+        run: |
+          docker build --platform linux/arm64 -t hello-world .
+
+      - name: Run Docker container
+        run: |
+          docker run hello-world
