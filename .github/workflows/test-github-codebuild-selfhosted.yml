@@ -9,4 +9,5 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker buildx --platform linux/arm64 -t hello-world .
+          docker buildx create --use
+          docker buildx -t hello-world --platform linux/arm64 .
