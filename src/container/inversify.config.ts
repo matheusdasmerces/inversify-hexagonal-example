@@ -5,8 +5,10 @@ import TYPES from "./types";
 import HelloWorld from "../example-app/hello-world/helloWorld";
 import IRepository from "../interfaces/repositoryIF";
 import IStorage from "../interfaces/storageIF";
+import ISSMParameterStore from "../interfaces/ssmParameterStoreIF";
 import DynamoDbRepository from "../adapters/repository/aws/dynamoDbRepository";
 import S3Repository from "../adapters/storage/aws/s3Repository";
+import SSMParameterStoreRepository from "../adapters/storage/aws/ssmParameterStoreRepository";
 import { EnvironmentVariables, EnvironmentVariablesObject as env } from "./environmentVariables";
 
 const container: Container = new Container();
@@ -16,6 +18,7 @@ container.bind<EnvironmentVariables>(TYPES.EnvironmentVariables).toConstantValue
 
 container.bind<IRepository>(TYPES.Repository).to(DynamoDbRepository).whenTargetIsDefault();
 container.bind<IStorage>(TYPES.Storage).to(S3Repository).whenTargetIsDefault();
+container.bind<ISSMParameterStore>(TYPES.SSMParameterStore).to(SSMParameterStoreRepository).whenTargetIsDefault();
 
 container.bind<HelloWorld>(TYPES.HelloWorld).to(HelloWorld).inSingletonScope();
 
