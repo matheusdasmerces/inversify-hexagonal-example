@@ -8,7 +8,7 @@ import IStorage from "../interfaces/storageIF";
 import IParameterStore from "../interfaces/parameterStoreIF";
 import DynamoDbRepository from "../adapters/repository/aws/dynamoDbRepository";
 import S3Repository from "../adapters/storage/aws/s3Repository";
-import SSMParameterStoreRepository from "../adapters/storage/aws/ssmParameterStoreRepository";
+import SSMParameterStore from "../adapters/parameterStore/aws/ssmParameterStore";
 import { EnvironmentVariables, EnvironmentVariablesObject as env } from "./environmentVariables";
 
 const container: Container = new Container();
@@ -18,7 +18,7 @@ container.bind<EnvironmentVariables>(TYPES.EnvironmentVariables).toConstantValue
 
 container.bind<IRepository>(TYPES.Repository).to(DynamoDbRepository).whenTargetIsDefault();
 container.bind<IStorage>(TYPES.Storage).to(S3Repository).whenTargetIsDefault();
-container.bind<IParameterStore>(TYPES.ParameterStore).to(SSMParameterStoreRepository).whenTargetIsDefault();
+container.bind<IParameterStore>(TYPES.ParameterStore).to(SSMParameterStore).whenTargetIsDefault();
 
 container.bind<HelloWorld>(TYPES.HelloWorld).to(HelloWorld).inSingletonScope();
 
