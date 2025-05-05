@@ -3,7 +3,7 @@ const TYPES = {
     HelloWorld: Symbol.for("HelloWorld"),
     Repository: Symbol.for("Repository"),
     Storage: Symbol.for("Storage"),
-    SSMParameterStore: Symbol.for("SSMParameterStore"),
+    ParameterStore: Symbol.for("ParameterStore"),
 };
 
 export default TYPES;
