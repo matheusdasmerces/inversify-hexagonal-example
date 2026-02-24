@@ -1,8 +1,11 @@
 const TYPES = {
     EnvironmentVariables: Symbol.for("EnvironmentVariables"),
-    HelloWorld: Symbol.for("HelloWorld"),
-    Repository: Symbol.for("Repository"),
+    DataSource: Symbol.for("DataSource"),
+    DataSourceFactory: Symbol.for("DataSourceFactory"),
     Storage: Symbol.for("Storage"),
+    Container: Symbol.for("Container"),
+    DurableFunction: Symbol.for("DurableFunction"),
+    DataMapper: Symbol.for("DataMapper"),
 };
 
 export default TYPES;
