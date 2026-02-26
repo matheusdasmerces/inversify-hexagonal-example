@@ -11,23 +11,23 @@ import IStorage from '../../../src/interfaces/storageIF';
 describe('inversify.config', () => {
   describe('Container', () => {
     it('contains a data source factory provider', () => {
-      const dataSourceFactory = container.get<(name: string) => IDataSource>(TYPES.DataSourceFactory);
+      const dataSourceFactory = container.get<(name: string) => { dataSource: IDataSource }>(TYPES.DataSourceFactory);
       expect(dataSourceFactory).toBeDefined();
 
       // check that we can get a data source instance
       const productsDataSource = dataSourceFactory('products');
       expect(productsDataSource).toBeDefined();
-      expect(typeof productsDataSource.fetch).toBe('function');
+      expect(typeof productsDataSource.dataSource.fetch).toBe('function');
     });
 
     it('contains a data mapper factory provider', () => {
-      const dataMapperFactory = container.get<(name: string) => IDataMapper>(TYPES.DataSourceFactory);
+      const dataMapperFactory = container.get<(name: string) => { dataMapper: IDataMapper }>(TYPES.DataSourceFactory);
       expect(dataMapperFactory).toBeDefined();
 
       // check that we can get a data mapper instance
       const ordersDataMapper = dataMapperFactory('orders');
       expect(ordersDataMapper).toBeDefined();
-      expect(typeof ordersDataMapper.mapToDomain).toBe('function');
+      expect(typeof ordersDataMapper.dataMapper.mapToDomain).toBe('function');
     });
 
     it('contains a object storage provider', () => {

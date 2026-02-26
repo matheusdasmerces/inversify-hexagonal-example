@@ -15,14 +15,12 @@ abstract class DurableParallelAbstractHandler {
   async handler(event: DurableFunctionEvent, context: DurableContext):
     Promise<DurableFunctionResponse> {
     try {
-      const contextsToBeExecuted = event.eventContexts.map((eventContext) =>
-        async (ctx: DurableContext) => {
-          return await ctx.runInChildContext(eventContext, async (childCtx) => {
-            return await this.execute(eventContext, childCtx)
-          });
-        },
-      );
-
+      const contextsToBeExecuted = event.eventContexts.map((eventContext) => ({
+        name: eventContext,
+        func: async (ctx: DurableContext) => {
+          return await this.execute(eventContext, ctx)
+        }
+      }));
 
       const results = await context.parallel('execute-contexts-in-parallel', contextsToBeExecuted);
 
